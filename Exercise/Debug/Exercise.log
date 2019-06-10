@@ -1,0 +1,4 @@
+﻿  StudentManagement.cpp
+c:\users\nguyen tich duy\documents\visual studio 2015\projects\exercise\exercise\studentmanagement.cpp(153): warning C4101: 'check': unreferenced local variable
+  Exercise.vcxproj -> C:\Users\Nguyen Tich Duy\documents\visual studio 2015\Projects\Exercise\Debug\Exercise.exe
+  Exercise.vcxproj -> C:\Users\Nguyen Tich Duy\documents\visual studio 2015\Projects\Exercise\Debug\Exercise.pdb (Partial PDB)
