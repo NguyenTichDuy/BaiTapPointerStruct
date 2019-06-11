@@ -1,2 +1,5 @@
 0		nguyen tich duy		6
 1		duy nguyen tich		6
+2		doan minh tiep		6
+3		duy nguyen tich		6
+4		gnuy adf adf		9

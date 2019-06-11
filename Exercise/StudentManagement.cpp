@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include<Windows.h>
 using namespace std;
 
 struct Student
@@ -115,7 +116,6 @@ void LoadFromFile(string filePath)
 			getline(fileInput, student[i].name, '\t');
 			fileInput >> student[i].score;
 			fileInput.ignore(1);
-			//cout << student[i].id << "\t\t" << student[i].name << "\t" << student[i].score << endl;
 			ID = i;
 		}
 		cout << "------Load from file successfuly!---------\n";
@@ -130,13 +130,14 @@ void LoadFromFile(string filePath)
 void Select(string filePath)
 {
 	bool check = true;
-	int choose = 1000;
+	int choose;
 	while (check)
 	{
 		Menu();
 		cout << "Choose: ";
+
 		cin >> choose;
-		cin.ignore();
+		cin.ignore(1);
 		switch (choose)
 		{
 		case 1:
@@ -155,7 +156,9 @@ void Select(string filePath)
 			check = false;
 			break;
 		default:
-			cout << "Vui long chon dung stt !!!!" << endl;
+			
+			cout << "Please select the correct number in the menu !!!!" << endl;
+			Sleep(2000);
 			break;
 		}
 	}
