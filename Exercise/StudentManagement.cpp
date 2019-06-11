@@ -3,9 +3,6 @@
 #include<string>
 using namespace std;
 
-fstream fileInput;
-const char* filePath = "Input.txt";
-
 struct Student
 {
 	int id;
@@ -14,13 +11,20 @@ struct Student
 };
 
 Student *student = new Student[100];
-int ID;
+int ID(0);
+
+void Display();
+int HamLuuID();
+void Menu();
+void InPut();
+void SaveToFile(string filePath);
+void LoadFromFile(string filePath);
+void Select(string filePath);
 
 int HamLuuID()
 {
 	static int numID = 0;
-	numID++;
-	return numID;
+	return ++numID;
 }
 
 
@@ -40,23 +44,22 @@ void InPut()
 {
 	system("cls");
 	int check = 1;
-	ID = 0;
+
 	while (check != 0)
 	{
 		ID++;
 		student[ID].id = ID;
-		
 		cout << "Nhap ten hoc sinh ID " << student[ID].id << " : ";
-		cin.ignore();
+		//cin.ignore();
 
 		getline(cin, student[ID].name, '\n');
-		
+
 		do
 		{
 			cout << "Score: ";
 			cin >> student[ID].score;
+			
 		} while (student[ID].score < 0 && student[ID].score > 10);
-
 		cin.ignore();
 
 		cout << "Choose (1 - continue, 0 - EXIT):";
@@ -65,25 +68,26 @@ void InPut()
 	}
 }
 
-void SaveToFile()
+void SaveToFile(string filePath)
 {
-	fileInput.open(filePath, ios::out);
+	ofstream fileOutput(filePath);
 
-	if (fileInput.is_open())
+	if (!fileOutput.fail())
 	{
 		for (int i = 1; i <= ID; i++)
 		{
-			fileInput << student[i].id << '\t\t';
-			getline(fileInput, student[i].name, '\n');
-			fileInput << student[i].score;
+			fileOutput << student[i].id << "\t\t";
+			fileOutput << student[i].name << "\t\t";
+			fileOutput << student[i].score << endl;
 		}
 		cout << "Luu file thanh cong" << endl;
+		system("pause");
 	}
 	else
 	{
 		cout << "!!!!!!!!ERROR!!!!!!!" << endl;
 	}
-	fileInput.close();
+	fileOutput.close();
 }
 
 void Display()
@@ -92,14 +96,14 @@ void Display()
 	cout << "ID\t\t" << "FULL NAME\t\t" << "SCORE" << endl;
 	for (int i = 1; i <= ID; i++)
 	{
-		cout << student[ID].id << "  \t\t" << student[ID].name << "\t\t" << student[ID].score << endl;
+		cout << student[i].id << "  \t\t" << student[i].name << "\t\t" << student[i].score << endl;
 	}
 	system("pause");
 }
 
-void LoadFromFile()
+void LoadFromFile(string filePath)
 {
-	fileInput.open(filePath, ios::in);
+	ifstream fileInput(filePath);
 
 	if (fileInput.is_open())
 	{
@@ -114,7 +118,7 @@ void LoadFromFile()
 	fileInput.close();
 }
 
-void Select()
+void Select(string filePath)
 {
 	bool check = true;
 	int choose = 1000;
@@ -133,10 +137,10 @@ void Select()
 			Display();
 			break;
 		case 3:
-			SaveToFile();
+			SaveToFile(filePath);
 			break;
 		case 4:
-			LoadFromFile();
+			LoadFromFile(filePath);
 			break;
 		case 0:
 			check = false;
@@ -150,11 +154,9 @@ void Select()
 
 int main()
 {
-	int check;
-	if (fileInput.fail())
-		cout << "Fail to open this file" << endl;
+	string filePath = "Input.txt";
 
-	Select();
+	Select(filePath);
 	
 	delete[] student;
 	system("pause");
