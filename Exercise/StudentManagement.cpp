@@ -14,19 +14,11 @@ Student *student = new Student[100];
 int ID(0);
 
 void Display();
-int HamLuuID();
 void Menu();
 void InPut();
 void SaveToFile(string filePath);
 void LoadFromFile(string filePath);
 void Select(string filePath);
-
-int HamLuuID()
-{
-	static int numID = 0;
-	return ++numID;
-}
-
 
 void Menu()
 {
@@ -47,10 +39,9 @@ void InPut()
 
 	while (check != 0)
 	{
-		ID++;
+		
 		student[ID].id = ID;
 		cout << "Nhap ten hoc sinh ID " << student[ID].id << " : ";
-		//cin.ignore();
 
 		getline(cin, student[ID].name, '\n');
 
@@ -67,10 +58,12 @@ void InPut()
 
 		} while (student[ID].score < 0 || student[ID].score > 10);
 		cin.ignore();
-
+		ID++;
+		
 		cout << "Choose (1 - continue, 0 - EXIT):";
 		cin >> check;
 		cin.ignore();
+		
 	}
 }
 
@@ -80,7 +73,7 @@ void SaveToFile(string filePath)
 
 	if (!fileOutput.fail())
 	{
-		for (int i = 1; i <= ID; i++)
+		for (int i = 0; i < ID; i++)
 		{
 			fileOutput << student[i].id << "\t\t";
 			fileOutput << student[i].name << "\t\t";
@@ -100,7 +93,7 @@ void Display()
 {
 	system("cls");
 	cout << "ID\t" << "FULL NAME\t\t" << "SCORE" << endl;
-	for (int i = 1; i <= ID; i++)
+	for (int i = 0; i < ID; i++)
 	{
 		cout << student[i].id << "\t" << student[i].name << "\t\t" << student[i].score << endl;
 	}
@@ -113,17 +106,24 @@ void LoadFromFile(string filePath)
 
 	if (fileInput.is_open())
 	{
-		for (int i = 1; i <= ID; i++)
+		int i = -1;
+		while (!fileInput.eof())
 		{
+			i++;
 			fileInput >> student[i].id;
 			fileInput.ignore(2);
-			fileInput >> student[i].name;
-			fileInput.ignore(2);
+			getline(fileInput, student[i].name, '\t');
 			fileInput >> student[i].score;
 			fileInput.ignore(1);
+			//cout << student[i].id << "\t\t" << student[i].name << "\t" << student[i].score << endl;
+			ID = i;
 		}
+		cout << "------Load from file successfuly!---------\n";
 	}
-	cout << "------Load from file successfuly!---------";
+	else {
+		cout << "-----------ERROR------------" << endl;
+	}	
+	system("pause");
 	fileInput.close();
 }
 
