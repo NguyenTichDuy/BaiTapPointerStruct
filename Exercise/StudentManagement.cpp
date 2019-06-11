@@ -58,8 +58,14 @@ void InPut()
 		{
 			cout << "Score: ";
 			cin >> student[ID].score;
-			
-		} while (student[ID].score < 0 && student[ID].score > 10);
+
+			if (student[ID].score < 0 || student[ID].score > 10)
+			{
+				cout << "Please choose in the range 0 - 10!!!!!\n";
+				continue;
+			}
+
+		} while (student[ID].score < 0 || student[ID].score > 10);
 		cin.ignore();
 
 		cout << "Choose (1 - continue, 0 - EXIT):";
@@ -80,7 +86,7 @@ void SaveToFile(string filePath)
 			fileOutput << student[i].name << "\t\t";
 			fileOutput << student[i].score << endl;
 		}
-		cout << "Luu file thanh cong" << endl;
+		cout << "------Save the file successfully!!!!----------" << endl;
 		system("pause");
 	}
 	else
@@ -93,10 +99,10 @@ void SaveToFile(string filePath)
 void Display()
 {
 	system("cls");
-	cout << "ID\t\t" << "FULL NAME\t\t" << "SCORE" << endl;
+	cout << "ID\t" << "FULL NAME\t\t" << "SCORE" << endl;
 	for (int i = 1; i <= ID; i++)
 	{
-		cout << student[i].id << "  \t\t" << student[i].name << "\t\t" << student[i].score << endl;
+		cout << student[i].id << "\t" << student[i].name << "\t\t" << student[i].score << endl;
 	}
 	system("pause");
 }
@@ -114,7 +120,7 @@ void LoadFromFile(string filePath)
 			fileInput >> student[i].score;
 		}
 	}
-
+	cout << "------Load from file successfuly!---------";
 	fileInput.close();
 }
 
